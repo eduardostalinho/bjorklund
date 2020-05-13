@@ -3,7 +3,19 @@
 //
 package bjorklund
 
-import "errors"
+import (
+	"fmt"
+)
+
+type PulsesGreaterThanSlotsErr struct {
+	Pulses int
+	Slots int
+}
+
+func (e PulsesGreaterThanSlotsErr) Error() string{
+	return fmt.Sprintf("Number of slots (%d) must be greater than the number of pulses (%d).", e.Slots, e.Pulses)
+
+}
 
 // Bjorklund passes variables needed to compute an Euclidian
 // pattern given a number of pulses and slots.
@@ -15,18 +27,21 @@ type Bjorklund struct {
 	Pattern    Pattern
 }
 
-func CreatePattern(pulses, slots, rotation int) Pattern {
-	b, _ := NewBjorklund(slots, pulses)
+func CreatePattern(pulses, slots, rotation int) (Pattern, error) {
+	b, err := NewBjorklund(pulses, slots)
+	if err != nil {
+		return nil, err
+	}
 	pattern := b.Compute()
-	return pattern.Rotate(rotation)
+	return pattern.Rotate(rotation), nil
 }
 
 // NewBjorklund constructs a new Bjorklund struct to be
-// computed later given the number of available pulses in
-// the cycle and the expected number of slots (ones)  in it.
+// computed later given the number of available slots in
+// the cycle and the expected number of pulses (ones)  in it.
 func NewBjorklund(pulses, slots int) (*Bjorklund, error) {
 	if pulses > slots {
-		return nil, errors.New("Number of pulses must be greter than the number of slots.")
+		return nil,  PulsesGreaterThanSlotsErr{Pulses: pulses, Slots: slots}
 	}
 	return &Bjorklund{Slots: slots, Pulses: pulses}, nil
 }
