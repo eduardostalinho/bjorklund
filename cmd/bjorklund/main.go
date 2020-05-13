@@ -1,18 +1,17 @@
 package main
 
 import (
-	"os"
 	"fmt"
 	"log"
+	"os"
 	"strconv"
 
 	"github.com/eduardostalinho/bjorklund"
 )
 
-
 func main() {
 	args := os.Args[1:]
-	
+
 	pulses, _ := strconv.Atoi(args[0])
 	slots, _ := strconv.Atoi(args[1])
 

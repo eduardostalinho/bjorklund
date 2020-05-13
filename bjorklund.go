@@ -1,6 +1,5 @@
 // Package bjorklund is used to generate evenly distributed sequences of 0s and 1s.
 // Based on the algorithm proposed in "The Theory of Rep-Rate Pattern Generation in the SNS Timing System" by E. Bjorklund.
-//
 package bjorklund
 
 // Bjorklund passes variables needed to compute an Euclidian
@@ -13,6 +12,7 @@ type Bjorklund struct {
 	Pattern    Pattern
 }
 
+// CreatePattern creates a pattern with even distributesd pulses on a number of slots.
 func CreatePattern(pulses, slots, rotation int) (Pattern, error) {
 	b, err := NewBjorklund(pulses, slots)
 	if err != nil {
@@ -27,7 +27,7 @@ func CreatePattern(pulses, slots, rotation int) (Pattern, error) {
 // the cycle and the expected number of pulses (ones)  in it.
 func NewBjorklund(pulses, slots int) (*Bjorklund, error) {
 	if pulses > slots {
-		return nil,  PulsesGreaterThanSlotsErr{Pulses: pulses, Slots: slots}
+		return nil, PulsesGreaterThanSlotsErr{Pulses: pulses, Slots: slots}
 	}
 	return &Bjorklund{Slots: slots, Pulses: pulses}, nil
 }

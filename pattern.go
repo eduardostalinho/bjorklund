@@ -9,7 +9,7 @@ func (p Pattern) Rotate(v int) Pattern {
 	return append(p[v:], p[:v]...)
 }
 
-// Get pulses returns a slice informing the indexes of 1s in the pattern.
+// GetPulses returns a slice informing the indexes of 1s in the pattern.
 func (p Pattern) GetPulses() (pulses []int) {
 	for i, x := range p {
 		if x == 1 {

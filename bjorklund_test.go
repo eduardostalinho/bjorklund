@@ -32,13 +32,13 @@ func TestBjorklund(t *testing.T) {
 			}
 		})
 	}
-	t.Run("test error for pulses greater than 0", func (t *testing.T) {
-			_, err := bjorklund.NewBjorklund(10, 4)
-			want := bjorklund.PulsesGreaterThanSlotsErr{10, 4} 
+	t.Run("test error for pulses greater than 0", func(t *testing.T) {
+		_, err := bjorklund.NewBjorklund(10, 4)
+		want := bjorklund.PulsesGreaterThanSlotsErr{10, 4}
 
-			if !reflect.DeepEqual(err, want) {
-				t.Errorf("expected error %v, got %v", want, err)
-			}
+		if !reflect.DeepEqual(err, want) {
+			t.Errorf("expected error %v, got %v", want, err)
+		}
 
 	})
 }
